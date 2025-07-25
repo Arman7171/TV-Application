@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import type { IFeatured } from "../utils/types";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMovieContext } from "../context/movieContext";
