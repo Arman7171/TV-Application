@@ -6,7 +6,7 @@ import NotFound from "./pages/NotFound";
 const router = () => {
   return (
     <Routes>
-      <Route path="/home" element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
