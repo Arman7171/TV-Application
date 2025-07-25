@@ -25,19 +25,21 @@ const Home = () => {
   const hasMounted = useRef(false);
   const skipVideoOnce = useRef(false);
 
-  const trendingNowData = useMemo(() => {
-    const sorted = [...data.TendingNow]
+  const sortedTrendingData = useMemo(() => {
+    return [...data.TendingNow]
       .sort((a, b) => new Date(b.Date).getTime() - new Date(a.Date).getTime())
       .slice(0, 50);
+  }, []);
 
+  const initialTrendingNowData = useMemo(() => {
     if (id) {
-      const activeItem = sorted.find((item) => item.Id === id);
-      const rest = sorted.filter((item) => item.Id !== id);
-      return activeItem ? [activeItem, ...rest] : sorted;
+      const activeItem = sortedTrendingData.find((item) => item.Id === id);
+      const rest = sortedTrendingData.filter((item) => item.Id !== id);
+      return activeItem ? [activeItem, ...rest] : sortedTrendingData;
     }
-
-    return sorted;
-  }, [id]);
+    return sortedTrendingData;
+    // ✅ No [id] dependency here — this runs only on first render
+  }, []);
 
   const handlePlay = () => {
     const matchedItem = id
@@ -101,6 +103,24 @@ const Home = () => {
             transition={{ duration: 0.8 }}
             className="absolute right-0 top-0 min-h-[600px] object-contain w-full h-[75%]"
           />
+        ) : mediaSrc.includes("youtube.com") ||
+          mediaSrc.includes("youtu.be") ? (
+          <motion.iframe
+            key={mediaKey}
+            src={
+              mediaSrc.replace("watch?v=", "embed/") +
+              "?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1"
+            }
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            variants={fadeVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={{ duration: 0.8 }}
+            className="absolute top-0 min-h-[600px] w-full h-full max-h-[100px]"
+          />
         ) : (
           <motion.video
             key={mediaKey}
@@ -120,7 +140,7 @@ const Home = () => {
       </AnimatePresence>
       <FeaturedInfo data={featuredData} handlePlay={handlePlay} />
       <div className="absolute bottom-[10px]">
-        <TrendingNow data={trendingNowData} />
+        <TrendingNow data={initialTrendingNowData} />
       </div>
     </div>
   );
