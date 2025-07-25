@@ -1,8 +1,8 @@
 import React from "react";
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
 import type { ITendingNowItems } from "../utils/types";
+import { useKeenSlider } from "keen-slider/react";
 import { useMovieContext } from "../context/movieContext";
+import "keen-slider/keen-slider.min.css";
 
 interface PropsType {
   data: ITendingNowItems[];

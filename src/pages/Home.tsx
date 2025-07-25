@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
+import type { IFeatured } from "../utils/types";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMovieContext } from "../context/movieContext";
-import type { IFeatured } from "../utils/types";
 import FeaturedInfo from "../components/FeaturedInfo";
 import TrendingNow from "../components/TrendingNow";
 import data from "../../public/data.json";

@@ -1,6 +1,6 @@
 import React from "react";
-import { formatSecondsToHM } from "../utils/helpers";
 import type { IFeatured } from "../utils/types";
+import { formatSecondsToHM } from "../utils/helpers";
 import Button from "./Button";
 
 interface PropsType {
